@@ -25,12 +25,14 @@
 
         <b-navbar-nav class="ml-auto">
           <b-nav-form>
-            <b-input-group class="mb-2 mr-sm-2 mb-sm-0">
-              <b-input v-model="search" id="inline-form-input-search" placeholder="search item"></b-input>
-              <b-input-group-append>
-                <b-button title="Scan a barcode"><i class="fa fa-barcode" aria-hidden="true"></i></b-button>
-              </b-input-group-append>
-            </b-input-group>
+            <b-form @submit="doSearch">
+              <b-input-group class="mb-2 mr-sm-2 mb-sm-0">
+                <b-input v-model="search" id="inline-form-input-search" placeholder="search item"></b-input>
+                <b-input-group-append>
+                  <b-button title="Scan a barcode"><i class="fa fa-barcode" aria-hidden="true"></i></b-button>
+                </b-input-group-append>
+              </b-input-group>
+            </b-form>
           </b-nav-form>
         </b-navbar-nav>
       </b-collapse>
@@ -84,6 +86,10 @@ export default {
     logout () {
       this.$store.dispatch('logout')
       this.$router.replace({ name: 'Home' })
+    },
+    doSearch (event) {
+      event.preventDefault()
+      this.$router.replace({ name: 'SearchNew', query: {q: this.search} })
     }
   }
 }

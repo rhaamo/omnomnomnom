@@ -3133,6 +3133,11 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
 
+ean13-lib@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/ean13-lib/-/ean13-lib-0.0.5.tgz#87beb1abe17ba5d388eff5d2771fb9c348e67e2d"
+  integrity sha512-x8wzwvpRWoHMTMyEtNDgCfGpodg5uz23pOPhANcZGDNiXFeO1OEEVcXxRRHSlk+O/tU2v/CDyWnHvgkczoKKeQ==
+
 easy-stack@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/easy-stack/-/easy-stack-1.0.0.tgz#12c91b3085a37f0baa336e9486eac4bf94e3e788"
