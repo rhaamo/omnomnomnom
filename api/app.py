@@ -18,6 +18,7 @@ from utils.flake_id import FlakeId
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
 import time
+import flask_wtf
 
 from models import db, user_datastore
 from utils.various import InvalidUsage, is_admin
@@ -121,7 +122,7 @@ def create_app(config_filename="config.development.Config", app_name=None, regis
     template = {
         "swagger": "2.0",
         "info": {"title": "omnomnomnom API", "description": "API", "version": VERSION},
-        "host": app.config["APP_HOST"],
+        "host": app.config["SERVER_NAME"],
         "basePath": "/",
         "schemes": ["https"],
         "securityDefinitions": {
@@ -134,19 +135,7 @@ def create_app(config_filename="config.development.Config", app_name=None, regis
 
     # Setup Flask-Security
     security = Security(app, user_datastore)  # noqa: F841 lgtm [py/unused-local-variable]
-
-    @FlaskSecuritySignals.password_reset.connect_via(app)
-    @FlaskSecuritySignals.password_changed.connect_via(app)
-    def log_password_reset(sender, user):
-        if not user:
-            return
-        add_user_log(user.id, user.id, "user", "info", "Your password has been changed !")
-
-    @FlaskSecuritySignals.reset_password_instructions_sent.connect_via(app)
-    def log_reset_password_instr(sender, user, token):
-        if not user:
-            return
-        add_user_log(user.id, user.id, "user", "info", "Password reset instructions sent.")
+    flask_wtf.CSRFProtect(app)
 
     @security.mail_context_processor
     def mail_ctx_proc():
@@ -168,21 +157,6 @@ def create_app(config_filename="config.development.Config", app_name=None, regis
         identity = getattr(g, "identity", None)
         if identity is not None and identity.id:
             return identity.user.timezone
-
-
-    @app.before_request
-    def before_request():
-
-        cfg = {
-            "OMNOMNOMNOM_VERSION_VER": VERSION,
-            "OMNOMNOMNOM_VERSION_GIT": GIT_VERSION,
-        }
-        if GIT_VERSION:
-            cfg["OMNOMNOMNOM_VERSION"] = "{0}-{1}".format(VERSION, GIT_VERSION)
-        else:
-            cfg["OMNOMNOMNOM_VERSION"] = VERSION
-
-        g.cfg = cfg
 
     @app.errorhandler(InvalidUsage)
     def handle_invalid_usage(error):
@@ -208,8 +182,8 @@ def create_app(config_filename="config.development.Config", app_name=None, regis
     app.flake_id = FlakeId()
 
     if register_blueprints:
-        # from controllers.api.v1.Xm import bp_X
-        # app.register_blueprint(bp_X)
+        from controllers.api.auth import bp_api_auth
+        app.register_blueprint(bp_api_auth)
 
         swagger = Swagger(app, template=template)  # noqa: F841 lgtm [py/unused-local-variable]
 

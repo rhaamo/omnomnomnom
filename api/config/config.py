@@ -95,6 +95,22 @@ class BaseConfig(object):
     SECURITY_SEND_REGISTER_EMAIL = True
     SECURITY_SEND_PASSWORD_CHANGE_EMAIL = True
     SECURITY_SEND_PASSWORD_RESET_NOTICE_EMAIL = True
+    SECURITY_FLASH_MESSAGES = False
+    SECURITY_URL_PREFIX = '/api/auth'
+
+    SECURITY_POST_CONFIRM_VIEW = "/auth/confirmed"
+    SECURITY_CONFIRM_ERROR_VIEW = "/auth/confirm-error"
+    SECURITY_RESET_VIEW = "/auth/reset-password"
+    SECURITY_RESET_ERROR_VIEW = "/auth/reset-password"
+    SECURITY_REDIRECT_BEHAVIOR = "spa"
+
+    # enforce CSRF protection for session / browser - but allow token-based
+    # API calls to go through
+    SECURITY_CSRF_PROTECT_MECHANISMS = ["token", "basic"]
+    SECURITY_CSRF_IGNORE_UNAUTH_ENDPOINTS = True
+
+    WTF_CSRF_CHECK_DEFAULT = False
+    WTF_CSRF_TIME_LIMIT = None
 
     # Backend default language
     BABEL_DEFAULT_LOCALE = os.getenv("BABEL_DEFAULT_LOCALE", "en")
@@ -122,15 +138,15 @@ class BaseConfig(object):
     MAIL_USERNAME = os.getenv("MAIL_USERNAME", None)
     MAIL_PASSWORD = os.getenv("MAIL_PASSWORD", None)
 
-    APP_HOST = "localhost"
+    SERVER_NAME = "localhost"
 
     @property
     def MAIL_DEFAULT_SENDER(self):
-        return os.getenv("MAIL_DEFAULT_SENDER", f"postmaster@{self.APP_HOST}")
+        return os.getenv("MAIL_DEFAULT_SENDER", f"postmaster@{self.SERVER_NAME}")
 
     @property
     def SECURITY_EMAIL_SENDER(self):
-        return os.getenv("MAIL_DEFAULT_SENDER", f"postmaster@{self.APP_HOST}")
+        return os.getenv("MAIL_DEFAULT_SENDER", f"postmaster@{self.SERVER_NAME}")
 
     SECURITY_EMAIL_SUBJECT_REGISTER = os.getenv("SECURITY_EMAIL_SUBJECT_REGISTER", "Welcome to omnomnomnom")
 

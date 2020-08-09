@@ -13,7 +13,7 @@ class Config(BaseConfig):
     # Set your DB URI
     SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://dashie@localhost/omnomnomnom"
 
-    APP_HOST = "miam.host.tld"
+    SERVER_NAME = "miam.host.tld"
 
     # If you are using Sentry, otherwise, set to None
     SENTRY_DSN = None
