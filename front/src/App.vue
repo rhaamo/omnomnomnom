@@ -1,17 +1,40 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link :to="{name: 'Home'}">Home</router-link> |
 
-      <template v-if="loggedIn">
-        <a href="#" @click.prevent="logout">Logout</a> |
-      </template>
-      <template v-else>
-        <router-link :to="{name: 'Login'}">Login</router-link> |
-      </template>
+    <b-navbar toggleable="lg" type="dark" variant="info">
+      <b-navbar-brand href="/">OmNomNomNom</b-navbar-brand>
 
-      <router-link :to="{name: 'About'}">About</router-link>
-    </div>
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav>
+
+          <b-nav-item :to="{name: 'Home'}">Home</b-nav-item>
+
+          <template v-if="loggedIn">
+           <b-nav-item><a href="#logout" @click.prevent="logout">Logout</a></b-nav-item>
+          </template>
+
+          <template v-else>
+            <b-nav-item :to="{name: 'Login'}">Login</b-nav-item>
+          </template>
+
+          <b-nav-item :to="{name: 'About'}">About</b-nav-item>
+
+        </b-navbar-nav>
+
+        <b-navbar-nav class="ml-auto">
+          <b-nav-form>
+            <b-input-group class="mb-2 mr-sm-2 mb-sm-0">
+              <b-input v-model="search" id="inline-form-input-search" placeholder="search item"></b-input>
+              <b-input-group-append>
+                <b-button title="Scan a barcode"><i class="fa fa-barcode" aria-hidden="true"></i></b-button>
+              </b-input-group-append>
+            </b-input-group>
+          </b-nav-form>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
 
     <b-container>
       <router-view/>
@@ -46,6 +69,11 @@
 import { mapState } from 'vuex'
 
 export default {
+  data() {
+    return {
+      search: ''
+    }
+  },
   mounted: function () {
     this.$store.dispatch('fetchCsrfToken')
   },
