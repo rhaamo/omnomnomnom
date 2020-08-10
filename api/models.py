@@ -120,10 +120,9 @@ class Logging(db.Model):
 # Item (main item)
 class Item(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    qty = db.Column(db.Integer)
-    expiry = db.Column(db.DateTime())
     flake_id = db.Column(UUID(as_uuid=True), unique=False, nullable=True)
     created_at = db.Column(db.DateTime(timezone=False), default=datetime.datetime.utcnow)
+    openfoodfacts_id = db.Column(db.String(255))
     openfoodfacts_product = db.Column(JSONB())
 
     sub_items = db.relationship("SubItem", backref="item", lazy="dynamic", cascade="delete")

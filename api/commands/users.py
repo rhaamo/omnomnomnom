@@ -31,9 +31,7 @@ def list():
     table.add_rows([["ID", "username"]])
 
     for user in users.all():
-        table.add_row(
-            [user.id, user.name]
-        )
+        table.add_row([user.id, user.name])
 
     print(table.draw())
 

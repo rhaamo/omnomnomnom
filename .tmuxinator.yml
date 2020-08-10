@@ -9,7 +9,7 @@ windows:
       - export APP_SETTINGS='config.development_secret.Config'
       - source venv/bin/activate
       - cd api
-      - flask run
+      - flask run -h 0.0.0.0
 #   - workers:
 #       - export FLASK_ENV=development
 #       - export APP_SETTINGS='config.development_secret.Config'
@@ -18,5 +18,5 @@ windows:
 #       - celery worker -A tasks.celery --loglevel=error
   - frontend:
       - cd front
-      - yarn dev
+      - yarn serve
 

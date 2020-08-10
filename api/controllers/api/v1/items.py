@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_security import auth_required
 import openfoodfacts
 import barcodenumber
+from models import db, Item, SubItem
 
 
 bp_api_v1_items = Blueprint("bp_api_v1_items", __name__)
@@ -61,6 +62,37 @@ def add():
             description: item has been added
 
     """
-    # datas = request.get_json()
+    datas = request.get_json()
 
-    return jsonify("ok")
+    openfoodfactsid = datas.get('openFoodFactsId', None)
+    if not openfoodfactsid:
+        return jsonify({"error": "no_openfoodfacts_id"}), 400
+
+    qty = datas.get('qty', 1)
+    if int(qty) <= 0:
+        qty = 1
+
+    expiry = datas.get('expiry', None)
+
+    off = openfoodfacts.products.get_product(openfoodfactsid)
+    if off["status"] == 1:
+        off = off["product"]
+    else:
+        off = None
+
+    # Try to get item matching OFF ID
+    item = Item.query.filter(Item.openfoodfacts_id == openfoodfactsid).first()
+    if not item:
+        # create it
+        item = Item(openfoodfacts_id=openfoodfactsid, openfoodfacts_product=off)
+        db.session.add(item)
+        subitem = SubItem(qty=qty, expiry=expiry, item=item)
+        db.session.add(subitem)
+    else:
+        # just add another sub item
+        subitem = SubItem(qty=qty, expiry=expiry, item=item)
+        db.session.add(subitem)
+
+    db.session.commit()
+
+    return jsonify({"state": "added", "item_id": item.flake_id})

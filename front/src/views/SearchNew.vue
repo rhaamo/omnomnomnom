@@ -1,6 +1,6 @@
 <template>
   <div class="search">
-    <h1>Searching for {{ query }}</h1>
+    <h1>Searching for <i>{{ query }}</i></h1>
 
     <template v-if="warn">
         <b-alert show variant="warning">Too many items returned, only the first {{page_size}} results are shown.</b-alert>
@@ -33,6 +33,9 @@
     </div>
 
     <b-modal id="modal-add" :title="modalTitle" @ok="saveItem" @cancel="cancelItem" ref="modal-add">
+            <template v-if="errorSaving">
+                <b-alert show fade variant="danger">Error while saving item!</b-alert>
+            </template>
             <b-form>
                 <b-row>
                     <b-col cols="6">
@@ -73,7 +76,8 @@ export default {
             addItem: {
                 qty: 1,
                 expiry: null
-            }
+            },
+            errorSaving: false
         }
     },
     validations: {
@@ -113,15 +117,19 @@ export default {
             this.$v.addItem.$touch();
 
             if (!this.$v.addItem.$anyError) {
-                console.log('save form!!!')
                 let itemDatas = {
                     openFoodFactsId: this.choosen._id,
                     qty: this.addItem.qty,
                     expiry: this.addItem.expiry
                 }
                 Axios.post("/api/v1/items/new", itemDatas, {withCredentials: true}).then(() => {
+                    this.errorSaving = false
                     this.cancelItem()
                     this.$refs['modal-add'].hide()
+                })
+                .catch((error) => {
+                    console.log('Got an error while trying to save item:', error.request, error.response)
+                    this.errorSaving = true
                 })
             }
         }
