@@ -6,8 +6,11 @@
         <b-alert show variant="warning">Too many items returned, only the first {{page_size}} results are shown.</b-alert>
     </template>
 
-    <div class="results" v-if="results.length === 0">
-        Search in progress or no results.
+    <div class="results" v-if="count === 0 && page_size === 0">
+        Search in progress.
+    </div>
+    <div class="results" v-if="count === 0 && page_size > 0">
+        No results.
     </div>
     <div class="results" v-else>
 

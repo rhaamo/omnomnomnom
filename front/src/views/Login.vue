@@ -1,5 +1,7 @@
 <template>
     <div class="login">
+        <h3>Login</h3>
+
         <b-row class="justify-content-md-center">
             <b-col col lg=3 >
                 <b-form @submit="doLogin">

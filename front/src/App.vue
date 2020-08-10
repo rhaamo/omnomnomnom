@@ -23,7 +23,7 @@
 
         </b-navbar-nav>
 
-        <b-navbar-nav class="ml-auto">
+        <b-navbar-nav class="ml-auto" v-if="loggedIn">
           <b-nav-form>
             <b-form @submit="doSearch">
               <b-input-group class="mb-2 mr-sm-2 mb-sm-0">
