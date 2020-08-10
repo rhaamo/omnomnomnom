@@ -108,8 +108,8 @@
                     <template v-slot:cell(expiry)="data"><span :class="expiryVariant(data.item.expiry)">{{shortDate(data.item.expiry)}}</span></template>
                     <template v-slot:cell(added)="data">{{shortDate(data.item.added)}}</template>
                     <template v-slot:cell(actions)="data">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                        &nbsp;
+                        <!--<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        &nbsp;-->
                         <a href="#" @click="deleteSubitem(choosen.item.flake_id, data.item.id, data.item.expiry)"><i class="fa fa-times" aria-hidden="true"></i></a>
                     </template>
                 </b-table>
