@@ -125,13 +125,7 @@ def create_app(config_filename="config.development.Config", app_name=None, regis
         "host": app.config["SERVER_NAME"],
         "basePath": "/",
         "schemes": ["https"],
-        "securityDefinitions": {
-            "Bearer": {
-                "type": "apiKey",
-                "name": "Authentication-Token",
-                "in": "header"
-            }
-        },
+        "securityDefinitions": {"Bearer": {"type": "apiKey", "name": "Authentication-Token", "in": "header"}},
         "consumes": ["application/json"],
         "produces": ["application/json"],
     }
@@ -188,13 +182,14 @@ def create_app(config_filename="config.development.Config", app_name=None, regis
 
     if register_blueprints:
         from controllers.api.auth import bp_api_auth
+
         app.register_blueprint(bp_api_auth)
 
         from controllers.api.v1.items import bp_api_v1_items
+
         app.register_blueprint(bp_api_v1_items)
 
         swagger = Swagger(app, template=template)  # noqa: F841 lgtm [py/unused-local-variable]
-
 
     @app.route("/uploads/<string:thing>/<path:stuff>", methods=["GET"])
     @cross_origin(origins="*", methods=["GET", "HEAD", "OPTIONS"], expose_headers="content-length", send_wildcard=True)

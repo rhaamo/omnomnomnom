@@ -23,4 +23,4 @@ class Config(BaseConfig):
     BCRYPT_LOG_ROUNDS = 4
     CELERY_BROKER_URL = "redis://redis:6379/0"
     CELERY_RESULT_BACKEND = "redis://redis:6379/0"
-    SERVER_NAME = 'localhost'
+    SERVER_NAME = "localhost"

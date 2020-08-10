@@ -32,10 +32,7 @@ def list():
 
     for user in users.all():
         table.add_row(
-            [
-                user.id,
-                user.name,
-            ]
+            [user.id, user.name,]
         )
 
     print(table.draw())

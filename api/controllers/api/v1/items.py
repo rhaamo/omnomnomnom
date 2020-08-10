@@ -31,7 +31,7 @@ def search():
     if not query:
         return jsonify({"count": 0, "results": []})
 
-    is_barcode = barcodenumber.check_code('ean13', query.strip())
+    is_barcode = barcodenumber.check_code("ean13", query.strip())
 
     results = openfoodfacts.products.search(query)
 
@@ -43,11 +43,9 @@ def search():
         else:
             results = {"count": 0, "page": 1, "page_size": 20, "products": []}
 
-    return jsonify({
-        "count": int(results["count"]),
-        "page_size": int(results["page_size"]),
-        "results": results["products"]
-    })
+    return jsonify(
+        {"count": int(results["count"]), "page_size": int(results["page_size"]), "results": results["products"]}
+    )
 
 
 @bp_api_v1_items.route("/api/v1/items/new", methods=["POST"])

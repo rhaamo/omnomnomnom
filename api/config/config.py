@@ -76,7 +76,9 @@ class BaseConfig(object):
     SECURITY_PASSWORD_SALT = os.getenv("SECURITY_PASSWORD_SALT", None)
 
     # Database stuff
-    SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI", "postgresql+psycopg2://postgres@localhost/omnomnomnom")
+    SQLALCHEMY_DATABASE_URI = os.getenv(
+        "SQLALCHEMY_DATABASE_URI", "postgresql+psycopg2://postgres@localhost/omnomnomnom"
+    )
     SQLALCHEMY_ECHO = bool_env("SQLALCHEMY_ECHO", False)
     # Thoses two shouldn't be touched
     SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -96,7 +98,7 @@ class BaseConfig(object):
     SECURITY_SEND_PASSWORD_CHANGE_EMAIL = True
     SECURITY_SEND_PASSWORD_RESET_NOTICE_EMAIL = True
     SECURITY_FLASH_MESSAGES = False
-    SECURITY_URL_PREFIX = '/api/auth'
+    SECURITY_URL_PREFIX = "/api/auth"
 
     SECURITY_POST_CONFIRM_VIEW = "/auth/confirmed"
     SECURITY_CONFIRM_ERROR_VIEW = "/auth/confirm-error"

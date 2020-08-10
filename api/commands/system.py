@@ -26,7 +26,9 @@ def test_email(email):
         print("ERROR: mail extensions is None !!!")
         exit(-1)
 
-    msg = Message(subject="omnomnomnom test email", recipients=[email], sender=current_app.config["MAIL_DEFAULT_SENDER"])
+    msg = Message(
+        subject="omnomnomnom test email", recipients=[email], sender=current_app.config["MAIL_DEFAULT_SENDER"]
+    )
     msg.body = render_template("email/test_email.txt")
     msg.html = render_template("email/test_email.html")
     try:
