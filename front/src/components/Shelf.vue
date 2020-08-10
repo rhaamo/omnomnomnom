@@ -185,6 +185,8 @@ export default {
                                 this.fetchItems(this.current_page)
                                 this.cancelItem()
                                 this.$root.$emit('bv::hide::modal', 'modal-manage', '#btnManage')
+                            } else {
+                                console.log("We didn't got OK while removing the item :(", resp.data)
                             }
                         })
                         .catch((error) => {

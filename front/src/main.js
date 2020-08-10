@@ -5,6 +5,7 @@ import store from './store'
 import i18n from './i18n'
 import Axios from 'axios'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
+import VueQuagga from 'vue-quaggajs';
 
 Vue.config.productionTip = false
 
@@ -33,6 +34,7 @@ import 'fork-awesome/scss/fork-awesome.scss'
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
+Vue.use(VueQuagga)
 
 new Vue({
   router,
