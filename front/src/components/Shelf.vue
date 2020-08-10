@@ -34,7 +34,7 @@
         <b-pagination-nav :link-gen="linkGen" :number-of-pages="total_pages" v-model="current_page" no-page-detect use-router></b-pagination-nav>
     </div>
 
-    <b-modal size="lg" id="modal-manage" @ok="saveItem" @cancel="cancelItem" ref="modal-add">
+    <b-modal size="lg" id="modal-manage" @ok="saveItem" @cancel="cancelItem" @close="cancelItem" @hidden="cancelItem" ref="modal-add">
         <template v-if="choosen.loaded" v-slot:modal-header="{ close }">
             <h5>
                 <a :href="openFoodFactsUrl(choosen.item.openfoodfacts_product._id)"><i class="fa fa-external-link" aria-hidden="true" title="View on OpenFoodFacts"></i></a>&nbsp;
