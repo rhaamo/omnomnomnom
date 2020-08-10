@@ -96,3 +96,44 @@ def add():
     db.session.commit()
 
     return jsonify({"state": "added", "item_id": item.flake_id})
+
+
+@bp_api_v1_items.route("/api/v1/items", methods=["GET"])
+@auth_required()
+def shelf():
+    """
+    Get all items of the shelf
+    ---
+    tags:
+        - Items
+    parameters:
+        - name: page
+          in: query
+          type: integer
+          description: page number
+    responses:
+        200:
+            description: list of items
+
+    """
+    page = int(request.args.get("page", 1))
+    q = Item.query.order_by(Item.openfoodfacts_product['product_name']).paginate(page=page, per_page=20)
+
+    results = []
+    for i in q.items:
+        qty_total = 0
+        expiries = []
+        for si in i.sub_items:
+            qty_total += si.qty
+            if si.expiry:
+                expiries.append(si.expiry.strftime('%a %d/%m/%y'))
+        expiries = list(set(expiries))  # dedup
+        results.append({
+            'item': i.openfoodfacts_product['product_name'],
+            'flake_id': i.flake_id,
+            'qty': qty_total,
+            'expiries': expiries,
+            'openfoodfacts_product': i.openfoodfacts_product
+        })
+
+    return jsonify({"page": page, "page_size": 20, "count": q.total, "items": results, "total_pages": q.pages})
