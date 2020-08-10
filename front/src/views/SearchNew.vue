@@ -17,7 +17,7 @@
         <b-card-group deck>
             <div class="result" v-for="item in results" :key="item._id">
                 <b-card
-                    :title="item.product_name"
+                    :title="decode(item.product_name)"
                     :img-src="item.image_front_small_url"
                     :img-alt="item.product_name"
                     tag="article"
@@ -25,7 +25,7 @@
                     class="mb-2"
                 >
                     <b-card-text>
-                        {{ item.ingredients_text }}
+                        {{ decode(item.ingredients_text) }}
                     </b-card-text>
 
                     <b-button v-b-modal.modal-add variant="primary" ref="btnAdd" @click="openModalAdd(item)" title="Add to shelf"><i class="fa fa-plus-square-o" aria-hidden="true"></i></b-button>&nbsp;
@@ -96,6 +96,11 @@ export default {
         this.fetchResults()
     },
     methods: {
+        decode (str) {
+            let parser = new DOMParser();
+            let dom = parser.parseFromString(str, 'text/html')
+            return dom.body.textContent
+        },
         openFoodFactsUrl (id) { return `https://world.openfoodfacts.org/product/${id}` },
         fetchResults: function () {
             Axios.get('/api/v1/items/new/search', {params: {q: this.query}}).then(resp => {

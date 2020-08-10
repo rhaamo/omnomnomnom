@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Shelf v-if="loggedIn"/>
+    <Shelf :page="page" v-if="loggedIn"/>
     <span v-else>Please log in to access shelf.</span>
   </div>
 </template>
@@ -10,6 +10,7 @@ import Shelf from '@/components/Shelf.vue'
 import { mapState } from 'vuex'
 
 export default {
+  props: ['page'],
   name: 'Home',
   components: {
     Shelf
