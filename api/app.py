@@ -109,7 +109,7 @@ def create_app(config_filename="config.development.Config", app_name=None, regis
     dbLogger = logging.getLogger("omnomnomnom.sqltime")
     dbLogger.setLevel(logging.DEBUG)
 
-    CORS(app, origins=["*"])
+    CORS(app, origins=["*"], supports_credentials=True)
 
     if app.debug:
         logging.getLogger("flask_cors.extension").level = logging.DEBUG

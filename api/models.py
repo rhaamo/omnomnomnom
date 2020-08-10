@@ -7,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.hybrid import Comparator
 from sqlalchemy.sql import func
 from sqlalchemy_searchable import make_searchable
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import UUID, JSONB
 import uuid
 from sqlalchemy import event
 
@@ -115,3 +115,31 @@ class Logging(db.Model):
     user_id = db.Column(db.Integer(), db.ForeignKey("user.id"), nullable=True)
 
     __mapper_args__ = {"order_by": timestamp.desc()}
+
+
+# Item (main item)
+class Item(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    qty = db.Column(db.Integer)
+    expiry = db.Column(db.DateTime())
+    flake_id = db.Column(UUID(as_uuid=True), unique=False, nullable=True)
+    created_at = db.Column(db.DateTime(timezone=False), default=datetime.datetime.utcnow)
+    openfoodfacts_product = db.Column(JSONB())
+
+    sub_items = db.relationship("SubItem", backref="item", lazy="dynamic", cascade="delete")
+
+
+@event.listens_for(Item, "after_insert")
+def generate_item_flakeid(mapper, connection, target):
+    if not target.flake_id:
+        flake_id = uuid.UUID(int=current_app.flake_id.get())
+        connection.execute(Item.__table__.update().where(Item.__table__.c.id == target.id).values(flake_id=flake_id))
+
+
+# Sub Item (qty, expiration)
+class SubItem(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    qty = db.Column(db.Integer)
+    expiry = db.Column(db.DateTime())
+    created_at = db.Column(db.DateTime(timezone=False), default=datetime.datetime.utcnow)
+    item_id = db.Column(db.Integer(), db.ForeignKey("item.id"), nullable=False)

@@ -106,9 +106,10 @@ class BaseConfig(object):
 
     # enforce CSRF protection for session / browser - but allow token-based
     # API calls to go through
-    SECURITY_CSRF_PROTECT_MECHANISMS = ["token", "basic"]
+    SECURITY_CSRF_PROTECT_MECHANISMS = ["session", "basic"]
     SECURITY_CSRF_IGNORE_UNAUTH_ENDPOINTS = True
 
+    SECURITY_CSRF_COOKIE = {"key": "XSRF-TOKEN"}
     WTF_CSRF_CHECK_DEFAULT = False
     WTF_CSRF_TIME_LIMIT = None
 

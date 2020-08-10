@@ -9,15 +9,11 @@ export default new Vuex.Store({
   plugins: [createPersistedState()],
   state: {
     csrfToken: '',
-    authToken: '',
     loggedIn: false
   },
   mutations: {
     setCsrfToken (state, token) {
       state.csrfToken = token
-    },
-    setAuthToken (state, token) {
-      state.authToken = token
     },
     setLoggedIn (state, loggedIn) {
       state.loggedIn = loggedIn
@@ -32,7 +28,6 @@ export default new Vuex.Store({
     },
     logout (ctx) {
       Axios.post('/api/auth/logout').then(() => {
-        ctx.commit('setAuthToken', '')
         ctx.commit('setLoggedIn', false)
       })
     }

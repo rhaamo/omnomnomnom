@@ -11,18 +11,13 @@ Vue.config.productionTip = false
 Axios.defaults.baseURL = 'http://192.168.10.167:5000'
 Axios.defaults.headers.common['Accept'] = 'application/json'
 Axios.defaults.headers.common['Content-Type'] = 'application/json'
+Axios.defaults.withCredentials = true;
 
 Axios.interceptors.request.use(function (config) {
   if (["post", "delete", "patch", "put"].includes(config["method"])) {
     // Set CSRF Token if known
     if (store.state.csrfToken !== '') {
       config.headers["X-CSRF-Token"] = store.state.csrfToken
-    }
-  }
-  if (["post", "delete", "patch", "put", "get"].includes(config["method"])) {
-    // Set then Authentication Token if known
-    if (store.state.authToken !== '') {
-      config.headers["Authentication-Token"] = store.state.authToken
     }
   }
   

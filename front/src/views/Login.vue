@@ -45,10 +45,7 @@ export default {
                 csrf_token: this.csrfToken
             }
 
-            Axios.post('/api/auth/login?include_auth_token', userData).then(res => {
-                let authToken = res.data.response.user.authentication_token
-                this.$store.commit('setAuthToken', authToken)
-
+            Axios.post('/api/auth/login', userData).then(() => {
                 // check login is good
                 Axios.get('/api/auth/check_logged').then(res => {
                     if (res.data === "OK_LOGGED_IN") {
