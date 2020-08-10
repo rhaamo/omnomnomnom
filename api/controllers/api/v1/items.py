@@ -61,6 +61,6 @@ def add():
             description: item has been added
 
     """
-    datas = request.get_json()
+    # datas = request.get_json()
 
     return jsonify("ok")

@@ -3,12 +3,10 @@ import logging
 import os
 import subprocess
 from logging.handlers import RotatingFileHandler
-from flask_babelex import gettext, Babel
-from flask import Flask, g, send_from_directory, jsonify, safe_join, request, flash, Response
+from flask import Flask, send_from_directory, jsonify, safe_join, Response
 from flask_mail import Mail
 from flask_migrate import Migrate
 from flask_security import Security
-from flask_security import signals as FlaskSecuritySignals
 from flask_cors import CORS, cross_origin
 from flasgger import Swagger
 from werkzeug.middleware.proxy_fix import ProxyFix
@@ -116,8 +114,6 @@ def create_app(config_filename="config.development.Config", app_name=None, regis
 
     mail = Mail(app)  # noqa: F841
     migrate = Migrate(app, db)  # noqa: F841 lgtm [py/unused-local-variable]
-    babel = Babel(app)  # noqa: F841
-    app.babel = babel
 
     template = {
         "swagger": "2.0",
@@ -139,23 +135,6 @@ def create_app(config_filename="config.development.Config", app_name=None, regis
     @security.mail_context_processor
     def mail_ctx_proc():
         return dict()
-
-    @babel.localeselector
-    def get_locale():
-        # if a user is logged in, use the locale from the user settings
-        identity = getattr(g, "identity", None)
-        if identity is not None and identity.id:
-            return identity.user.locale
-        # otherwise try to guess the language from the user accept
-        # header the browser transmits.  We support fr/en in this
-        # example.  The best match wins.
-        return request.accept_languages.best_match(AVAILABLE_LOCALES)
-
-    @babel.timezoneselector
-    def get_timezone():
-        identity = getattr(g, "identity", None)
-        if identity is not None and identity.id:
-            return identity.user.timezone
 
     @app.errorhandler(InvalidUsage)
     def handle_invalid_usage(error):
