@@ -30,7 +30,7 @@
                 </b-card-text>
 
                 <b-button v-b-modal.modal-manage variant="primary" ref="btnAdd" @click="openModalManage(item)" title="Manage item"><i class="fa fa-cutlery" aria-hidden="true"></i></b-button>&nbsp;
-                <b-button variant="info"><a :href="openFoodFactsUrl(item.openfoodfacts_product._id)" target="_blank">OpenFoodFacts</a></b-button>
+                <a :href="openFoodFactsUrl(item.openfoodfacts_product._id)" target="_blank"><b-button variant="info">OpenFoodFacts</b-button></a>
             </b-card>
         </div>
     </b-card-group>
@@ -44,7 +44,7 @@
         </template>
         <template v-slot:cell(actions)="data">
             <b-button v-b-modal.modal-manage variant="primary" ref="btnAdd" @click="openModalManage(data.item)" title="Manage item"><i class="fa fa-cutlery" aria-hidden="true"></i></b-button>&nbsp;
-            <b-button variant="info"><a :href="openFoodFactsUrl(data.item.openfoodfacts_product._id)" target="_blank">OpenFoodFacts</a></b-button>
+            <a :href="openFoodFactsUrl(data.item.openfoodfacts_product._id)" target="_blank"><b-button variant="info">OpenFoodFacts</b-button></a>
         </template>
     </b-table>
 

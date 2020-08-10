@@ -29,7 +29,7 @@
                     </b-card-text>
 
                     <b-button v-b-modal.modal-add variant="primary" ref="btnAdd" @click="openModalAdd(item)" title="Add to shelf"><i class="fa fa-plus-square-o" aria-hidden="true"></i></b-button>&nbsp;
-                    <b-button variant="info"><a :href="openFoodFactsUrl(item._id)" target="_blank">OpenFoodFacts</a></b-button>
+                    <a :href="openFoodFactsUrl(item._id)" target="_blank"><b-button variant="info">OpenFoodFacts</b-button></a>
                 </b-card>
             </div>
         </b-card-group>
