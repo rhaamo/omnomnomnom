@@ -17,7 +17,7 @@ const validateAuthenticatedRoute = (to, from, next) => {
 }
 
 const routes = [
-  { path: '/', name: 'Home', component: Home, props: route => ({ page: route.query.page }) },
+  { path: '/', name: 'Home', component: Home, props: route => ({ page: route.query.page, view: route.query.view }) },
   { path: '/about', name: 'About', component: About },
   { path: '/auth/login', name: 'Login', component: Login },
   { path: '/items/new/search', name: 'SearchNew', component: SearchNew, props: route => ({ query: route.query.q }), beforeEnter: validateAuthenticatedRoute }

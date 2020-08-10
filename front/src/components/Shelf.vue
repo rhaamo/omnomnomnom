@@ -1,6 +1,11 @@
 <template>
   <div class="shelf">
-    <h1>shelf ({{count}} items)</h1>
+    <b-row align-v="center">
+        <b-col><h1>shelf ({{count}} items)</h1></b-col>
+        <b-col cols="3" align="right">
+            View as: <b-link title="Table" :to="{name:'Home', query: {view: 'table'}}"><i class="fa fa-th-list" aria-hidden="true"></i></b-link>&nbsp;<b-link title="Cards" :to="{name: 'Home'}"><i class="fa fa-th-large" aria-hidden="true"></i></b-link>
+        </b-col>
+    </b-row>
 
     <template v-if="loadingErrors.item">
         <b-alert show fade variant="danger">Error while fetching shelf!</b-alert>
@@ -9,7 +14,7 @@
         <b-alert show fade variant="danger">Error while fetching item datas!</b-alert>
     </template>
 
-    <b-card-group deck>
+    <b-card-group deck v-if="view == 'cards'">
         <div class="result" v-for="item in items" :key="item.flake_id">
             <b-card
                 :title="decode(item.openfoodfacts_product.product_name)"
@@ -29,6 +34,19 @@
             </b-card>
         </div>
     </b-card-group>
+
+    <b-table stripped hover :items="items" :fields="tableView.fields" v-else>
+        <template v-slot:cell(thumb)="data">
+            <img :src="data.item.openfoodfacts_product.image_front_thumb_url">
+        </template>
+        <template v-slot:cell(expiries)="data">
+            <span v-for="(element, index) in data.item.expiries" :key="index"><span v-if="index != 0">, </span><span :class="expiryVariant(element)">{{ shortDate(element) }}</span></span>
+        </template>
+        <template v-slot:cell(actions)="data">
+            <b-button v-b-modal.modal-manage variant="primary" ref="btnAdd" @click="openModalManage(data.item)" title="Manage item"><i class="fa fa-cutlery" aria-hidden="true"></i></b-button>&nbsp;
+            <b-button variant="info"><a :href="openFoodFactsUrl(data.item.openfoodfacts_product._id)" target="_blank">OpenFoodFacts</a></b-button>
+        </template>
+    </b-table>
 
     <div class="overflow-auto">
         <b-pagination-nav :link-gen="linkGen" :number-of-pages="total_pages" v-model="current_page" no-page-detect use-router></b-pagination-nav>
@@ -122,6 +140,10 @@ export default {
         page: {
             type: Number,
             default: 1
+        },
+        view: {
+            type: String,
+            default: 'cards'
         }
     },
     mixins: [validationMixin],
@@ -158,6 +180,15 @@ export default {
                 expiry: null
             },
             errorSavingSubitem: false,
+            tableView: {
+                fields: [
+                    { key: 'thumb', label: 'Thumbnail' },
+                    { key: 'item', label: 'Product', sortable: true },
+                    { key: 'qty', label: 'Qty', sortable: true },
+                    { key: 'expiries', label: 'Expiries' },
+                    { key: 'actions', label: '-' }
+                ]
+            }
         }
     },
     computed: {
