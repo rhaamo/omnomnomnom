@@ -12,10 +12,12 @@
                         placeholder="iam@fluffy.tld"
                         v-model="email"
                     ></b-input>
+                    <br>
 
                     <label class="sr-only" for="form-input-password">Password</label>
                     <b-input type="password" id="form-input-password" placeholder="Password" v-model="password"></b-input>
-
+                    <br>
+                    
                     <b-button variant="primary" type="submit">Login</b-button>
                 </b-form>
             </b-col>

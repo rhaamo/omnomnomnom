@@ -137,3 +137,42 @@ def shelf():
         })
 
     return jsonify({"page": page, "page_size": 20, "count": q.total, "items": results, "total_pages": q.pages})
+
+
+
+@bp_api_v1_items.route("/api/v1/item/<string:flake_id>", methods=["GET"])
+@auth_required()
+def subitems(flake_id):
+    """
+    Get all items of the shelf
+    ---
+    tags:
+        - Items
+    responses:
+        200:
+            description: get item with subitems
+
+    """
+
+    item = Item.query.filter(Item.flake_id == flake_id).first()
+    if not item:
+        return jsonify({"error": "not_found"}), 404
+
+    res = {
+        "flake_id": item.flake_id,
+        "openfoodfacts_product": item.openfoodfacts_product,
+        "added": item.created_at,
+        "qty": 0,
+        "subitems": []
+    }
+
+    for i in item.sub_items:
+        res['qty'] += i.qty
+        res['subitems'].append({
+            'id': i.id,
+            'expiry': i.expiry,
+            'qty': i.qty,
+            'added': i.created_at
+        })
+
+    return jsonify(res)
