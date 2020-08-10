@@ -34,7 +34,7 @@
         <b-pagination-nav :link-gen="linkGen" :number-of-pages="total_pages" v-model="current_page" no-page-detect use-router></b-pagination-nav>
     </div>
 
-    <b-modal size="lg" id="modal-manage" @ok="saveItem" @cancel="cancelItem" @close="cancelItem" @hidden="cancelItem" ref="modal-add">
+    <b-modal size="lg" id="modal-manage" @cancel="cancelItem" @close="cancelItem" @hidden="cancelItem" ref="modal-add">
         <template v-if="choosen.loaded" v-slot:modal-header="{ close }">
             <h5>
                 <a :href="openFoodFactsUrl(choosen.item.openfoodfacts_product._id)"><i class="fa fa-external-link" aria-hidden="true" title="View on OpenFoodFacts"></i></a>&nbsp;
@@ -70,6 +70,15 @@
                 </b-table>
             </b-col>
         </b-row>
+
+        <template v-slot:modal-footer="{ cancel }">
+            <b-button size="sm" variant="danger" @click="deleteItem(choosen.item.flake_id, choosen.item.openfoodfacts_product.product_name)">
+                Delete
+            </b-button>
+            <b-button size="sm" variant="success" @click="cancel">
+                Close
+            </b-button>
+        </template>
     </b-modal>
 
   </div>
@@ -156,8 +165,36 @@ export default {
             this.choosen.item = {}
             this.choosen.loaded = false
         },
-        saveItem: function (event) {
-            event.preventDefault()
+        deleteItem: function (flake_id, product_name) {
+            this.$bvModal.msgBoxConfirm(`Are you sure you want to delete: ${this.decode(product_name)}`, {
+                title: 'Deleting item',
+                size: 'sm',
+                buttonSize: 'sm',
+                okVariant: 'danger',
+                okTitle: 'yes',
+                cancelTitle: 'no',
+                footerClass: 'p-2',
+                hideHeaderClose: false,
+                centered: true
+            })
+            .then(value => {
+                    if (value === true) {
+                        Axios.delete(`/api/v1/item/${flake_id}`).then(resp => {
+                            if (resp.data === "OK") {
+                                // reload shelf
+                                this.fetchItems(this.current_page)
+                                this.cancelItem()
+                                this.$root.$emit('bv::hide::modal', 'modal-manage', '#btnManage')
+                            }
+                        })
+                        .catch((error) => {
+                            console.log(`Got an error while trying to delete the item ${flake_id}:`, error)
+                        })
+                    }
+            })
+            .catch(err => {
+                console.log("An error occured for the delete popup:", err)
+            })
         }
     },
     watch: {

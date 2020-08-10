@@ -144,7 +144,7 @@ def shelf():
 @auth_required()
 def subitems(flake_id):
     """
-    Get all items of the shelf
+    Get an item off the shelf
     ---
     tags:
         - Items
@@ -176,3 +176,27 @@ def subitems(flake_id):
         })
 
     return jsonify(res)
+
+
+@bp_api_v1_items.route("/api/v1/item/<string:flake_id>", methods=["DELETE"])
+@auth_required()
+def delete(flake_id):
+    """
+    Delete an item
+    ---
+    tags:
+        - Items
+    responses:
+        200:
+            description: delete an item
+
+    """
+
+    item = Item.query.filter(Item.flake_id == flake_id).first()
+    if not item:
+        return jsonify({"error": "not_found"}), 404
+
+    db.session.delete(item)
+    db.session.commit()
+
+    return jsonify("OK")
