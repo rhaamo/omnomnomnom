@@ -3,7 +3,7 @@
     <b-row align-v="center">
         <b-col><h1>shelf ({{count}} items)</h1></b-col>
         <b-col cols="3" align="right">
-            View as: <b-link title="Table" :to="{name:'Home', query: {view: 'table'}}"><i class="fa fa-th-list" aria-hidden="true"></i></b-link>&nbsp;<b-link title="Cards" :to="{name: 'Home'}"><i class="fa fa-th-large" aria-hidden="true"></i></b-link>
+            View as: <b-link title="Table" :to="{name:'Home', query: {view: 'table'}}"><i class="fa fa-th-list" aria-hidden="true"></i></b-link>&nbsp;<b-link title="Cards" :to="{name: 'Home', query: {view: 'cards'}}"><i class="fa fa-th-large" aria-hidden="true"></i></b-link>
         </b-col>
     </b-row>
 
@@ -35,7 +35,7 @@
         </div>
     </b-card-group>
 
-    <b-table stripped hover :items="items" :fields="tableView.fields" v-else>
+    <b-table stripped hover small :items="items" :fields="tableView.fields" v-else>
         <template v-slot:cell(thumb)="data">
             <img :src="data.item.openfoodfacts_product.image_front_thumb_url">
         </template>
@@ -143,7 +143,7 @@ export default {
         },
         view: {
             type: String,
-            default: 'cards'
+            default: 'table'
         }
     },
     mixins: [validationMixin],
