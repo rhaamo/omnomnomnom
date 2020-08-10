@@ -49,7 +49,7 @@
                     </b-col>
 
                     <b-col cols="6">
-                        <b-form-group id="add-qty" label="Qty" label-for="input-add-expiry">
+                        <b-form-group id="add-qty" label="Expires" label-for="input-add-expiry">
                             <b-input v-model="addItem.expiry" type="date" id="input-add-expiry"></b-input>
                         </b-form-group>
                     </b-col>

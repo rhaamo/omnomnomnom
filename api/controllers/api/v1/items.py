@@ -126,7 +126,7 @@ def shelf():
         for si in i.sub_items:
             qty_total += si.qty
             if si.expiry:
-                expiries.append(si.expiry.strftime('%a %d/%m/%y'))
+                expiries.append(si.expiry)
         expiries = list(set(expiries))  # dedup
         results.append({
             'item': i.openfoodfacts_product['product_name'],
@@ -197,6 +197,66 @@ def delete(flake_id):
         return jsonify({"error": "not_found"}), 404
 
     db.session.delete(item)
+    db.session.commit()
+
+    return jsonify("OK")
+
+
+@bp_api_v1_items.route("/api/v1/item/<string:flake_id>/subitem/new", methods=["POST"])
+@auth_required()
+def subitem_new(flake_id):
+    """
+    Add a subitem
+    ---
+    tags:
+        - Items
+    responses:
+        200:
+            description: subitem added
+
+    """
+    datas = request.get_json()
+
+    item = Item.query.filter(Item.flake_id == flake_id).first()
+    if not item:
+        return jsonify({"error": "not_found"}), 404
+
+    qty = datas.get('qty', 1)
+    if int(qty) <= 0:
+        qty = 1
+
+    expiry = datas.get('expiry', None)
+
+    subitem = SubItem(qty=qty, expiry=expiry, item=item)
+    db.session.add(subitem)
+    db.session.commit()
+
+    return jsonify({"state": "added", "subitem_id": subitem.id})
+
+
+@bp_api_v1_items.route("/api/v1/item/<string:flake_id>/subitem/<string:subitem_id>", methods=["DELETE"])
+@auth_required()
+def subitem_delete(flake_id, subitem_id):
+    """
+    Delete a subitem
+    ---
+    tags:
+        - Items
+    responses:
+        200:
+            description: delete a subitem
+
+    """
+
+    item = Item.query.filter(Item.flake_id == flake_id).first()
+    if not item:
+        return jsonify({"error": "not_found"}), 404
+
+    subitem = SubItem.query.filter(SubItem.item_id == item.id, SubItem.id == subitem_id).first()
+    if not subitem:
+        return jsonify({"error": "not_found"}), 404
+
+    db.session.delete(subitem)
     db.session.commit()
 
     return jsonify("OK")
