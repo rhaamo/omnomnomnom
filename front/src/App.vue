@@ -89,7 +89,9 @@ export default {
     },
     doSearch (event) {
       event.preventDefault()
-      this.$router.replace({ name: 'SearchNew', query: {q: this.search} })
+      let search = this.search
+      this.search = ''
+      this.$router.replace({ name: 'SearchNew', query: {q: search} }).catch(() => {})
     }
   }
 }

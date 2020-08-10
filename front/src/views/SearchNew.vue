@@ -141,6 +141,14 @@ export default {
                 })
             }
         }
+    },
+    watch: {
+        'query': function () {
+            this.results = ''
+            this.count = 0
+            this.page_size = 0
+            this.fetchResults()
+        }
     }
 }
 </script>
