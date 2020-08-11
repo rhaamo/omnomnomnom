@@ -28,8 +28,10 @@
                         {{ decode(item.ingredients_text) }}
                     </b-card-text>
 
-                    <b-button v-b-modal.modal-add variant="primary" ref="btnAdd" @click="openModalAdd(item)" title="Add to shelf"><i class="fa fa-plus-square-o" aria-hidden="true"></i></b-button>&nbsp;
-                    <a :href="openFoodFactsUrl(item._id)" target="_blank"><b-button variant="info">OpenFoodFacts</b-button></a>
+                    <b-row class="justify-content-md-center">
+                        <b-col align="center"><b-button v-b-modal.modal-add variant="primary" ref="btnAdd" @click="openModalAdd(item)" title="Add to shelf"><i class="fa fa-plus-square-o" aria-hidden="true"></i></b-button></b-col>
+                        <b-col align="center"><a :href="openFoodFactsUrl(item._id)" target="_blank"><b-button variant="info"><i class="fa fa-external-link" aria-hidden="true"></i></b-button></a></b-col>
+                    </b-row>
                 </b-card>
             </div>
         </b-card-group>

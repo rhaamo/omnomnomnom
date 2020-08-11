@@ -43,8 +43,10 @@
             <span v-for="(element, index) in data.item.expiries" :key="index"><span v-if="index != 0">, </span><span :class="expiryVariant(element)">{{ shortDate(element) }}</span></span>
         </template>
         <template v-slot:cell(actions)="data">
-            <b-button v-b-modal.modal-manage variant="primary" ref="btnAdd" @click="openModalManage(data.item)" title="Manage item"><i class="fa fa-cutlery" aria-hidden="true"></i></b-button>&nbsp;
-            <a :href="openFoodFactsUrl(data.item.openfoodfacts_product._id)" target="_blank"><b-button variant="info">OpenFoodFacts</b-button></a>
+            <b-row class="justify-content-md-center">
+                <b-col align="center"><b-button v-b-modal.modal-manage variant="primary" ref="btnAdd" @click="openModalManage(data.item)" title="Manage item"><i class="fa fa-cutlery" aria-hidden="true"></i></b-button></b-col>
+                <b-col align="center"><a :href="openFoodFactsUrl(data.item.openfoodfacts_product._id)" target="_blank" title="View on OpenFoodFacts"><b-button variant="info"><i class="fa fa-external-link" aria-hidden="true"></i></b-button></a></b-col>
+            </b-row>
         </template>
     </b-table>
 
