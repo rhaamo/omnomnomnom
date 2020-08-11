@@ -11,7 +11,7 @@ setup(
     author_email="dashie@sigpipe.me",
     install_requires=[
         "Flask==1.1.2",
-        "SQLAlchemy==1.3.12",
+        "SQLAlchemy==1.3.18",
         "SQLAlchemy-Searchable==1.2.0",
         "SQLAlchemy-Utils==0.36.8",
         "Flask-Mail==0.9.1",
@@ -27,5 +27,5 @@ setup(
         "flask-accept==0.0.6",
     ],
     setup_requires=["pytest-runner"],
-    tests_require=["pytest==5.3.2", "pytest-cov==2.8.1"],
+    tests_require=["pytest==6.0.1", "pytest-cov==2.10.0"],
 )
