@@ -8,6 +8,8 @@ Soon!
 
 # Installation
 
+Note: it does requires python 3.7 minimum ! And the latest or LTS nodejs for frontent.
+
 ```
 useradd -m -s /bin/bash omnomnomnom
 sudo su - omnomnomnom
