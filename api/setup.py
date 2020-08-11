@@ -27,5 +27,5 @@ setup(
         "flask-accept==0.0.6",
     ],
     setup_requires=["pytest-runner"],
-    tests_require=["pytest==5.3.2", "pytest-cov==2.8.1"],
+    tests_require=["pytest==5.3.2", "pytest-cov==2.10.0"],
 )
