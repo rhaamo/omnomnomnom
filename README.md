@@ -42,3 +42,15 @@ $EDITOR /etc/systemd/system/
 # change paths if needed
 systemctl enable omnomnomnom-web
 systemctl start omnomnomnom-web
+```
+
+Create an user:
+```
+sudo su - omnomnomnom
+cd omnomnomnom
+source venv/bin/activate
+cd api
+flask users create
+# if needed:
+flask users confirm
+```
