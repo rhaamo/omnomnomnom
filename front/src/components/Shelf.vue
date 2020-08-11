@@ -67,7 +67,7 @@
             <b-col cols="6">
                 <b-row>
                     <b-col>
-                        <b-row>
+                        <b-row class="manage-item-carousel">
                             <b-col cols="12" align="center">
                                 <VueSlickCarousel v-bind="carousel.settings">
                                     <div><img :src="this.choosen.item.openfoodfacts_product.image_front_small_url"></div>
@@ -211,7 +211,8 @@ export default {
                     "slidesToScroll": 1,
                     "adaptiveHeight": true,
                     "centerMode": true,
-                    "centerPadding": "20px"
+                    "centerPadding": "20px",
+                    "arrows": false
                 }
             }
         }
