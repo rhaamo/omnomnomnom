@@ -45,7 +45,16 @@
                 <b-row>
                     <b-col cols="6">
                         <b-form-group id="add-qty" label="Qty" label-for="input-add-qty">
-                            <b-input v-model="addItem.qty" type="number" id="input-add-qty" :state="$v.addItem.qty.$dirty ? !$v.addItem.qty.$error : null"></b-input>
+                            <b-input-group>
+                                <template v-slot:prepend>
+                                    <b-button @click.prevent="qtyMinus" variant="outline-info">-</b-button>
+                                </template>
+                                <b-input v-model="addItem.qty" type="number" id="input-add-qty" :state="$v.addItem.qty.$dirty ? !$v.addItem.qty.$error : null"></b-input>
+                                <template v-slot:append>
+                                    <b-button @click.prevent="qtyPlus" variant="outline-info">+</b-button>
+                                </template>
+                            </b-input-group>
+
                             <b-form-invalid-feedback id="input-add-qty-feedback">1 minimum</b-form-invalid-feedback>
                         </b-form-group>
                     </b-col>
@@ -142,6 +151,14 @@ export default {
                     this.errorSaving = true
                 })
             }
+        },
+        qtyMinus: function () {
+            if (this.addItem.qty >= 2) {
+                this.addItem.qty -= 1
+            }
+        },
+        qtyPlus: function () {
+            this.addItem.qty+=1
         }
     },
     watch: {
