@@ -10,7 +10,7 @@ flask_mail==0.9.1
 flask_migrate==2.5.2
 git+https://github.com/maxcountryman/flask-uploads#egg=flask_uploads
 sqlalchemy_searchable==1.1.0
-redis==3.3.11
+redis==3.5.3
 flask-accept==0.0.6
 PyQRCode==1.2.1
 flask-cors>=3.0.8
