@@ -37,7 +37,7 @@
         </b-card-group>
     </div>
 
-    <b-modal id="modal-add" :title="modalTitle" @ok="saveItem" @cancel="cancelItem" ref="modal-add">
+    <b-modal id="modal-add" :title="modalTitle" @ok="saveItem" @cancel="cancelItem" ref="modal-add" footer-class="custom-footer-modal">
             <template v-if="errorSaving">
                 <b-alert show fade variant="danger">Error while saving item!</b-alert>
             </template>
@@ -66,6 +66,13 @@
                     </b-col>
                 </b-row>
             </b-form>
+
+            <template v-slot:modal-footer="{ cancel, ok }">
+                <b-row class="justify-content-md-center">
+                    <b-col align="center" cols="5"><b-button size="sm" variant="secondary" @click="cancel">Cancel</b-button></b-col>
+                    <b-col align="center" cols="5"><b-button size="sm" variant="primary" @click="ok">OK</b-button></b-col>
+                </b-row>
+            </template>
     </b-modal>
 
   </div>
