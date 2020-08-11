@@ -36,3 +36,9 @@ VHost and service install, as root:
 ```
 cp /home/omnomnomnom/omnomnomnom/dist/vhost.nginx /etc/nginx/sites-available/omnomnomnom
 $EDITOR /etc/nginx/sites-available/omnomnomnom
+# change what you need to change
+cp /home/omnomnomnom/omnomnomnom/dist/omnomnomnom-web.service /etc/systemd/system/
+$EDITOR /etc/systemd/system/
+# change paths if needed
+systemctl enable omnomnomnom-web
+systemctl start omnomnomnom-web

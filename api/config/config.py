@@ -127,9 +127,6 @@ class BaseConfig(object):
     CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "redis://127.0.0.1:6379/0")
     CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", "redis://127.0.0.1:6379/0")
 
-    # ActivityPub stuff
-    AP_ENABLED = bool_env("AP_ENABLED", False)
-
     # Sources of that instance, should be your repos if forked
     SOURCES_REPOSITORY_URL = os.getenv("SOURCES_REPOSITORY_URL", "https://github.com/dashie/omnopmnomnom")
 

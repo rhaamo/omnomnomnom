@@ -4,6 +4,7 @@ from flask.cli import with_appcontext
 from flask_mail import Message
 from flask import render_template, current_app
 import texttable
+from pprint import pprint as pp
 
 
 @click.group()
@@ -12,6 +13,15 @@ def system():
     System commands.
     """
     pass
+
+
+@system.command(name="config")
+@with_appcontext
+def config():
+    """
+    Dump config
+    """
+    pp(current_app.config)
 
 
 @system.command(name="test-email")

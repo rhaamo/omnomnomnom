@@ -16,7 +16,8 @@ server {
         add_header Strict-Transport-Security max-age=15768000;
         
         location / {
-                alias /home/omnomnomnom/omnomnomnom/front/dist;
+                index index.html index.htm;
+                root /home/omnomnomnom/omnomnomnom/front/dist;
         }
         
         location /api {
