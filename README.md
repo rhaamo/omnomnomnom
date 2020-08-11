@@ -2,6 +2,10 @@
 
 Manage your shelf of canned food. With OpenFoodFacts integration for products source only.
 
+# Screenshots
+
+Soon!
+
 # Installation
 
 ```
