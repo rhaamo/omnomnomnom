@@ -29,7 +29,7 @@
     "@intlify/vue-i18n-loader": "^1.0.0",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.5.2",
-    "@vue/cli-plugin-router": "~4.4.0",
+    "@vue/cli-plugin-router": "~4.5.2",
     "@vue/cli-plugin-vuex": "~4.4.0",
     "@vue/cli-service": "~4.4.0",
     "babel-eslint": "^10.1.0",
