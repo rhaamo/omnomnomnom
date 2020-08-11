@@ -37,7 +37,7 @@
 
     <b-table stripped hover small :items="items" :fields="tableView.fields" v-else>
         <template v-slot:cell(thumb)="data">
-            <img :src="data.item.openfoodfacts_product.image_front_thumb_url">
+            <div align="center"><img :src="data.item.openfoodfacts_product.image_front_thumb_url"></div>
         </template>
         <template v-slot:cell(expiries)="data">
             <span v-for="(element, index) in data.item.expiries" :key="index"><span v-if="index != 0">, </span><span :class="expiryVariant(element)">{{ shortDate(element) }}</span></span>
