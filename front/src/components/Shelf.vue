@@ -68,8 +68,14 @@
                 <b-row>
                     <b-col>
                         <b-row>
-                            <b-col cols="6"><img :src="choosen.item.openfoodfacts_product.image_front_small_url"></b-col>
-                            <b-col cols="6"><img :src="choosen.item.openfoodfacts_product.image_ingredients_small_url"></b-col>
+                            <b-col cols="12" align="center">
+                                <VueSlickCarousel v-bind="carousel.settings">
+                                    <div><img :src="this.choosen.item.openfoodfacts_product.image_front_small_url"></div>
+                                    <div><img :src="this.choosen.item.openfoodfacts_product.image_ingredients_small_url"></div>
+                                    <div><img :src="this.choosen.item.openfoodfacts_product.image_nutrition_small_url"></div>
+                                    <div><img :src="this.choosen.item.openfoodfacts_product.image_small_url"></div>
+                                </VueSlickCarousel>
+                            </b-col>
                         </b-row>
                         
                         <b-row>
@@ -136,6 +142,9 @@ import Axios from 'axios'
 import Moment from 'moment'
 import { required, minValue } from 'vuelidate/lib/validators'
 import { validationMixin } from "vuelidate";
+import VueSlickCarousel from 'vue-slick-carousel'
+import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
 export default {
     props: {
@@ -149,6 +158,7 @@ export default {
         }
     },
     mixins: [validationMixin],
+    components: { VueSlickCarousel },
     validations: {
         newSubitem: {
             qty: { required, minValue }
@@ -190,6 +200,19 @@ export default {
                     { key: 'expiries', label: 'Expiries' },
                     { key: 'actions', label: '-' }
                 ]
+            },
+            carousel: {
+                settings: {
+                    "lazyLoad": "ondemand",
+                    "dots": true,
+                    "infinite": true,
+                    "speed": 500,
+                    "slidesToShow": 1,
+                    "slidesToScroll": 1,
+                    "adaptiveHeight": true,
+                    "centerMode": true,
+                    "centerPadding": "20px"
+                }
             }
         }
     },
