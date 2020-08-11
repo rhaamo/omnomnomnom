@@ -1,9 +1,9 @@
 <template>
     <div class="login">
-        <h3>Login</h3>
-
         <b-row class="justify-content-md-center">
-            <b-col col lg=3 >
+            <b-col col lg=3 align="center">
+                <h3>Login</h3>
+
                 <b-form @submit="doLogin">
                     <label class="sr-only" for="form-input-email">Email</label>
                     <b-input
@@ -17,7 +17,7 @@
                     <label class="sr-only" for="form-input-password">Password</label>
                     <b-input type="password" id="form-input-password" placeholder="Password" v-model="password"></b-input>
                     <br>
-                    
+
                     <b-button variant="primary" type="submit">Login</b-button>
                 </b-form>
             </b-col>
