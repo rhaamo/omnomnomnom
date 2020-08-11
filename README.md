@@ -54,3 +54,28 @@ flask users create
 # if needed:
 flask users confirm
 ```
+
+You should add to the `~/.bashrc` file of the `omnomnomnom` user the following:
+```
+export APP_SETTINGS='config.production_secret.Config'
+export FLASK_ENV=production
+```
+
+So it ensures you always have the right production config when running commands.
+
+# Update
+Check changelog (if any) then:
+```
+sudo su - omnomnomnom
+cd omnomnomnom
+git pull
+cd front
+yarn install
+yarn build
+# if there is any db/api changes:
+cd ~/omnomnomnom/api
+flask db upgrade
+# and run any seed if mentioned in changelog
+```
+
+Don't forget to restart the `omnomnomnom-web` service if there was any api change.
