@@ -17,6 +17,7 @@ from sqlalchemy import event
 from sqlalchemy.engine import Engine
 import time
 import flask_wtf
+from flask_babelex import Babel
 
 from models import db, user_datastore
 from utils.various import InvalidUsage, is_admin
@@ -114,7 +115,9 @@ def create_app(config_filename="config.development.Config", app_name=None, regis
 
     mail = Mail(app)  # noqa: F841
     migrate = Migrate(app, db)  # noqa: F841 lgtm [py/unused-local-variable]
-
+    babel = Babel(app)  # noqa: F841
+    app.babel = babel
+    
     template = {
         "swagger": "2.0",
         "info": {"title": "omnomnomnom API", "description": "API", "version": VERSION},
