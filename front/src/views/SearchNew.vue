@@ -127,6 +127,10 @@ export default {
                 this.results = resp.data.results
                 this.warn = this.count > this.page_size
             })
+            .catch((error) => {
+                console.log('Got an error while trying to fetch item:', error)
+                this.$bvToast.toast(`Cannot fetch search items.`, {title: 'Error', variant: 'danger', solid: true, autoHideDelay: 4000, appendToast: false})
+            })
         },
         cancelItem: function () {
             this.choosen = {}
@@ -155,7 +159,8 @@ export default {
                     this.$refs['modal-add'].hide()
                 })
                 .catch((error) => {
-                    console.log('Got an error while trying to save item:', error.request, error.response)
+                    console.log('Got an error while trying to save item:', error)
+                    this.$bvToast.toast(`Cannot save item.`, {title: 'Error', variant: 'danger', solid: true, autoHideDelay: 4000, appendToast: false})
                     this.errorSaving = true
                 })
             }

@@ -258,7 +258,8 @@ export default {
                 this.errorFetching = false
             })
             .catch((error) => {
-                console.log('Got an error while trying to save item:', error.request, error.response)
+                console.log('Got an error while trying to fetch items:', error)
+                this.$bvToast.toast(`Cannot fetch items.`, {title: 'Error', variant: 'danger', solid: true, autoHideDelay: 4000, appendToast: false})
                 this.loadingErrors.item = true
             })
         },
@@ -267,7 +268,8 @@ export default {
                 this.choosen.item = resp.data
                 this.choosen.loaded = true
             }).catch((error) => {
-                console.log('Got an error while trying to load item subitems:', error.request, error.response)
+                console.log('Got an error while trying to load item subitems:', error)
+                this.$bvToast.toast(`Cannot fetch search item informations.`, {title: 'Error', variant: 'danger', solid: true, autoHideDelay: 4000, appendToast: false})
                 this.loadingErrors.subitems = true
             })
         },
@@ -308,6 +310,7 @@ export default {
                         }
                     })
                     .catch((error) => {
+                        this.$bvToast.toast(`Cannot delete item.`, {title: 'Error', variant: 'danger', solid: true, autoHideDelay: 4000, appendToast: false})
                         console.log(`Got an error while trying to delete the item ${flake_id}:`, error)
                     })
                 }
@@ -333,6 +336,7 @@ export default {
                 })
                 .catch((error) => {
                     console.log('Got an error while trying to add a subitem:', error)
+                    this.$bvToast.toast(`Cannot add sub item.`, {title: 'Error', variant: 'danger', solid: true, autoHideDelay: 4000, appendToast: false})
                     this.errorSavingSubitem = true
                 })
             }
@@ -358,10 +362,12 @@ export default {
                             this.fetchItems(this.current_page)
                         } else {
                             console.log("We didn't got OK while removing the subitem :(", resp.data)
+                            this.$bvToast.toast(`There might have been an error.`, {title: 'Warning', variant: 'warning', solid: true, autoHideDelay: 4000, appendToast: false})
                         }
                     })
                     .catch((error) => {
                         console.log(`Got an error while trying to delete the subitem ${flake_id}/${subitem_id}:`, error)
+                        this.$bvToast.toast(`Cannot delete sub item.`, {title: 'Error', variant: 'danger', solid: true, autoHideDelay: 4000, appendToast: false})
                     })
                 }
             })

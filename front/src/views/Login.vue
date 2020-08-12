@@ -57,7 +57,14 @@ export default {
                         this.$router.push({ name: 'Home' })
                     }
                 })
-
+                .catch((error) => {
+                    console.log('Login check returned an error:', error)
+                    this.$bvToast.toast(`Cannot verify login.`, {title: 'Error', variant: 'danger', solid: true, autoHideDelay: 4000, appendToast: false})
+                })
+            })
+            .catch((error) => {
+                console.log('Login error:', error)
+                this.$bvToast.toast(`Cannot log in.`, {title: 'Error', variant: 'danger', solid: true, autoHideDelay: 4000, appendToast: false})
             })
         }
     }
