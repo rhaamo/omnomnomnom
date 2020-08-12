@@ -151,6 +151,7 @@ export default {
                 Axios.post("/api/v1/items/new", itemDatas, {withCredentials: true}).then(() => {
                     this.errorSaving = false
                     this.cancelItem()
+                    this.$bvToast.toast(`Item has been added.`, {title: 'Success', variant: 'success', solid: true, autoHideDelay: 4000, appendToast: false})
                     this.$refs['modal-add'].hide()
                 })
                 .catch((error) => {
