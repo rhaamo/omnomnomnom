@@ -16,7 +16,7 @@ setup(
         "SQLAlchemy-Utils==0.36.8",
         "Flask-Mail==0.9.1",
         "Flask-Migrate==2.5.3",
-        "bcrypt==3.1.7",
+        "bcrypt==3.2.0",
         "psycopg2-binary==2.8.5",
         "unidecode==1.1.1",
         "Flask_Babelex==0.9.4",
