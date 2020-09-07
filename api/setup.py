@@ -20,7 +20,7 @@ setup(
         "psycopg2-binary==2.8.5",
         "unidecode==1.1.1",
         "Flask_Babelex==0.9.4",
-        "texttable==1.6.1",
+        "texttable==1.6.3",
         "python-slugify==4.0.1",
         "redis==3.5.3",
         "celery==4.4.7",
