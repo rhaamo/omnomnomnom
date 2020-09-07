@@ -17,7 +17,7 @@ setup(
         "Flask-Mail==0.9.1",
         "Flask-Migrate==2.5.3",
         "bcrypt==3.1.7",
-        "psycopg2-binary==2.8.5",
+        "psycopg2-binary==2.8.6",
         "unidecode==1.1.1",
         "Flask_Babelex==0.9.4",
         "texttable==1.6.1",
