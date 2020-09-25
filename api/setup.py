@@ -23,7 +23,7 @@ setup(
         "texttable==1.6.1",
         "python-slugify==4.0.1",
         "redis==3.5.3",
-        "celery==4.4.7",
+        "celery==5.0.0",
         "flask-accept==0.0.6",
     ],
     setup_requires=["pytest-runner"],
