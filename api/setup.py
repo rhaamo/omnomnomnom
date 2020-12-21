@@ -18,7 +18,7 @@ setup(
         "Flask-Migrate==2.5.3",
         "bcrypt==3.1.7",
         "psycopg2-binary==2.8.5",
-        "unidecode==1.1.1",
+        "unidecode==1.1.2",
         "Flask_Babelex==0.9.4",
         "texttable==1.6.1",
         "python-slugify==4.0.1",
