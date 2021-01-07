@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@intlify/vue-i18n-loader": "^1.0.0",
-    "@vue/cli-plugin-babel": "~4.5.2",
+    "@vue/cli-plugin-babel": "~4.5.10",
     "@vue/cli-plugin-eslint": "~4.5.2",
     "@vue/cli-plugin-router": "~4.5.2",
     "@vue/cli-plugin-vuex": "~4.5.2",
