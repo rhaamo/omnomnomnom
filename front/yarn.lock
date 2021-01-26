@@ -8487,10 +8487,10 @@ vue-quaggajs@^1.0.12:
     quagga "^0.12.1"
     webrtc-adapter "^7.2.0"
 
-vue-router@^3.2.0:
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.4.2.tgz#541221d7ac467786c1c9381bcf36019d883b9cf8"
-  integrity sha512-n3Ok70hW0EpcJF4lcWIwSHAQbFTnIOLl/fhO8+oTs4jHNtBNsovcVvPZeTOyKEd8C3xF1Crft2ASuOiVT5K1mw==
+vue-router@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.5.0.tgz#ae49da16a2939f8d28d66d5784b14167d661192f"
+  integrity sha512-QYrPzHMJiJCq20ezhlGok+NbrmjzhQDG6pnpJaD14Eg3NvT07s3acYz2ktxJ7vGHd/Ts4TgG9Tt8a2PA+Js5fw==
 
 vue-slick-carousel@^1.0.6:
   version "1.0.6"
