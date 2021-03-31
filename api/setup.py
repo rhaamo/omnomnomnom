@@ -11,7 +11,7 @@ setup(
     author_email="dashie@sigpipe.me",
     install_requires=[
         "Flask==1.1.2",
-        "SQLAlchemy==1.3.18",
+        "SQLAlchemy==1.4.4",
         "SQLAlchemy-Searchable==1.2.0",
         "SQLAlchemy-Utils==0.36.8",
         "Flask-Mail==0.9.1",
